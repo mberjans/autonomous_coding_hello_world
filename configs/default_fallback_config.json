@@ -1,0 +1,84 @@
+{
+  "fallback_system": {
+    "enabled": true,
+    "strategy": "intelligent_primary_secondary",
+    "monitoring_interval": 30,
+    "health_check_timeout": 10,
+    "consecutive_failure_threshold": 3,
+    "error_rate_threshold": 0.3,
+    "response_time_threshold": 30.0,
+    "hysteresis_time": 300,
+    "metrics_window_size": 20,
+    "log_level": "INFO"
+  },
+  "frameworks": {
+    "primary": {
+      "name": "claude",
+      "enabled": true,
+      "priority": 1,
+      "health_weight": 1.0,
+      "timeout": 60.0,
+      "max_retries": 3
+    },
+    "secondary": {
+      "name": "opencode",
+      "enabled": true,
+      "priority": 2,
+      "health_weight": 0.9,
+      "timeout": 45.0,
+      "max_retries": 2
+    }
+  },
+  "task_routing": {
+    "simple_tasks": "opencode",
+    "complex_tasks": "claude", 
+    "web_development": "opencode",
+    "algorithm_implementation": "claude",
+    "data_processing": "opencode",
+    "api_development": "opencode",
+    "machine_learning": "claude",
+    "cli_tools": "opencode"
+  },
+  "failure_thresholds": {
+    "api_timeout": 30.0,
+    "max_consecutive_failures": 3,
+    "health_score_minimum": 0.3,
+    "error_rate_maximum": 0.3,
+    "switch_cooldown": 300,
+    "recovery_attempts": 3
+  },
+  "monitoring": {
+    "enable_performance_tracking": true,
+    "enable_health_reports": true,
+    "metrics_retention_hours": 24,
+    "alert_thresholds": {
+      "high_error_rate": 0.4,
+      "low_health_score": 0.2,
+      "slow_response_time": 45.0
+    }
+  },
+  "providers": {
+    "anthropic": {
+      "models": ["claude-3.5-sonnet", "claude-3-opus", "claude-3-haiku"],
+      "default_model": "claude-3.5-sonnet",
+      "api_key_env": "ANTHROPIC_API_KEY"
+    },
+    "openai": {
+      "models": ["gpt-4", "gpt-4-turbo", "gpt-3.5-turbo"],
+      "default_model": "gpt-4",
+      "api_key_env": "OPENAI_API_KEY"
+    },
+    "azure": {
+      "models": ["gpt-4", "gpt-4-turbo"],
+      "default_model": "gpt-4",
+      "api_key_env": "AZURE_OPENAI_API_KEY"
+    }
+  },
+  "logging": {
+    "level": "INFO",
+    "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    "file_rotation": true,
+    "max_file_size_mb": 10,
+    "backup_count": 5
+  }
+}
