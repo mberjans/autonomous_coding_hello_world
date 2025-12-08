@@ -1,0 +1,50 @@
+{
+  "fallback_system": {
+    "enabled": true,
+    "strategy": "intelligent_primary_secondary",
+    "monitoring_interval": 30,
+    "health_check_timeout": 10,
+    "consecutive_failure_threshold": 2,
+    "error_rate_threshold": 0.25,
+    "response_time_threshold": 25.0,
+    "hysteresis_time": 180
+  },
+  "frameworks": {
+    "primary": {
+      "name": "opencode",
+      "enabled": true,
+      "priority": 1,
+      "health_weight": 1.0
+    },
+    "secondary": {
+      "name": "claude",
+      "enabled": true,
+      "priority": 2,
+      "health_weight": 0.8
+    }
+  },
+  "task_routing": {
+    "simple_tasks": "opencode",
+    "complex_tasks": "opencode",
+    "web_development": "opencode",
+    "algorithm_implementation": "claude",
+    "data_processing": "opencode",
+    "api_development": "opencode"
+  },
+  "providers": {
+    "anthropic": {
+      "models": ["claude-3.5-sonnet", "claude-3-opus"],
+      "default_model": "claude-3.5-sonnet"
+    },
+    "openai": {
+      "models": ["gpt-4", "gpt-4-turbo", "gpt-3.5-turbo"],
+      "default_model": "gpt-4"
+    }
+  },
+  "failure_thresholds": {
+    "api_timeout": 45.0,
+    "max_retries": 2,
+    "health_score_minimum": 0.4,
+    "switch_cooldown": 180
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "fallback_system": {
+    "enabled": true,
+    "strategy": "intelligent_primary_secondary",
+    "monitoring_interval": 30,
+    "health_check_timeout": 10,
+    "consecutive_failure_threshold": 3,
+    "error_rate_threshold": 0.3,
+    "response_time_threshold": 30.0,
+    "hysteresis_time": 300
+  },
+  "frameworks": {
+    "primary": {
+      "name": "claude",
+      "enabled": true,
+      "priority": 1,
+      "health_weight": 1.0
+    },
+    "secondary": {
+      "name": "opencode",
+      "enabled": true,
+      "priority": 2,
+      "health_weight": 0.9
+    }
+  },
+  "task_routing": {
+    "simple_tasks": "claude",
+    "complex_tasks": "claude",
+    "web_development": "claude",
+    "algorithm_implementation": "claude",
+    "data_processing": "claude",
+    "api_development": "opencode"
+  },
+  "failure_thresholds": {
+    "api_timeout": 60.0,
+    "max_retries": 3,
+    "health_score_minimum": 0.3,
+    "switch_cooldown": 300
+  }
+}
